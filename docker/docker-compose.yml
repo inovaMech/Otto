@@ -1,0 +1,42 @@
+# ============================================================
+# Otto Sim — docker-compose.yml
+# Uso: docker compose up
+# ============================================================
+services:
+  otto_sim:
+    image: unirobotica/otto_sim:latest      # imagem publicada no Docker Hub
+    # build:                                 # descomente para buildar localmente
+    #   context: ..
+    #   dockerfile: docker/Dockerfile
+    container_name: otto_sim
+    stdin_open: true
+    tty: true
+    network_mode: host                       # ROS 2 DDS precisa de rede host
+
+    environment:
+      - DISPLAY=${DISPLAY}                   # X11 forwarding (WSLg / VcXsrv)
+      - ROS_DOMAIN_ID=0
+      - QT_X11_NO_MITSHM=1
+
+    volumes:
+      # Workspace do aluno — editável no host, visível no container
+      - ../ros2_ws:/ros2_ws
+
+      # Exercícios Octave
+      - ../octave:/octave
+
+      # X11 socket (Linux nativo / WSL2 com WSLg)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
+    # GPU: descomente se tiver NVIDIA com WSL2
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+    privileged: false
+    security_opt:
+      - seccomp:unconfined               # necessário para Gazebo em alguns sistemas

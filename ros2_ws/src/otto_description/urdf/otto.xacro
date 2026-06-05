@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<robot name="iMech_Otto" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find iMech_Otto_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find iMech_Otto_description)/urdf/iMech_Otto.trans" />
+<xacro:include filename="$(find iMech_Otto_description)/urdf/iMech_Otto.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.00019839422399033318 0.00048133600283775777 -0.025083002755304288" rpy="0 0 0"/>
+    <mass value="0.032082488018398886"/>
+    <inertia ixx="2.6e-05" iyy="2.5e-05" izz="4.1e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="LeftLeg_1">
+  <inertial>
+    <origin xyz="-5.2388648974499574e-15 -8.637669678136825e-05 -0.018540132277720882" rpy="0 0 0"/>
+    <mass value="0.008295768110971864"/>
+    <inertia ixx="3e-06" iyy="2e-06" izz="2e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.026 -0.0 0.039" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/LeftLeg_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.026 -0.0 0.039" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/LeftLeg_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FootR_1">
+  <inertial>
+    <origin xyz="-0.007697901006662889 0.01692768844509805 -0.01289566987647009" rpy="0 0 0"/>
+    <mass value="0.012749332366692666"/>
+    <inertia ixx="5e-06" iyy="2e-06" izz="7e-06" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.026 0.0185 0.07" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/FootR_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.026 0.0185 0.07" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/FootR_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FootL_1">
+  <inertial>
+    <origin xyz="0.00769955986687847 0.01692805001715702 -0.012894741270675025" rpy="0 0 0"/>
+    <mass value="0.01274684267714529"/>
+    <inertia ixx="5e-06" iyy="2e-06" izz="7e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.026 0.02 0.07" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/FootL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.026 0.02 0.07" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/FootL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RightLeg_1">
+  <inertial>
+    <origin xyz="5.2111093218343285e-15 1.0223024729097876e-05 -0.018677042906013082" rpy="0 0 0"/>
+    <mass value="0.00834817521109724"/>
+    <inertia ixx="3e-06" iyy="2e-06" izz="2e-06" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.026 -0.0 0.039" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/RightLeg_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.026 -0.0 0.039" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/RightLeg_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="Ultrasonic_Sensor_v1_1">
+  <inertial>
+    <origin xyz="-0.013499999999987765 0.0022760721849166624 6.492925897629356e-05" rpy="0 0 0"/>
+    <mass value="0.044351271100451166"/>
+    <inertia ixx="2e-06" iyy="9e-06" izz="9e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.013675 0.0327 -0.0175" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/Ultrasonic_Sensor_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.013675 0.0327 -0.0175" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/Ultrasonic_Sensor_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="old_component__1__1">
+  <inertial>
+    <origin xyz="-0.03234164301267688 0.000738610970961072 0.026109189411051507" rpy="0 0 0"/>
+    <mass value="0.0241983579475568"/>
+    <inertia ixx="1.6e-05" iyy="1.6e-05" izz="2.6e-05" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.033 0.0 0.007" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/old_component__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.033 0.0 0.007" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find iMech_Otto_description)/meshes/old_component__1__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+

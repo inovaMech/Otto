@@ -1,0 +1,223 @@
+<?xml version="1.0" ?>
+<robot name="iMech_Otto">
+
+  <!-- ==================== MATERIALS ==================== -->
+  <material name="silver">
+    <color rgba="0.75 0.75 0.75 1.0"/>
+  </material>
+  <material name="dark_grey">
+    <color rgba="0.3 0.3 0.3 1.0"/>
+  </material>
+
+  <!-- ==================== BASE LINK (Body) ==================== -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.00019839422399033318 0.00048133600283775777 -0.025083002755304288" rpy="0 0 0"/>
+      <mass value="0.032082488018398886"/>
+      <inertia ixx="2.6e-05" iyy="2.5e-05" izz="4.1e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== HEAD ==================== -->
+  <!-- era: old_component__1__1 -->
+  <link name="Head">
+    <inertial>
+      <origin xyz="-0.03234164301267688 0.000738610970961072 0.026109189411051507" rpy="0 0 0"/>
+      <mass value="0.0241983579475568"/>
+      <inertia ixx="1.6e-05" iyy="1.6e-05" izz="2.6e-05" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.033 0.0 0.007" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/old_component__1__1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.033 0.0 0.007" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/old_component__1__1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== ULTRASONIC SENSOR ==================== -->
+  <link name="Ultrasonic_Sensor">
+    <inertial>
+      <origin xyz="-0.013499999999987765 0.0022760721849166624 6.492925897629356e-05" rpy="0 0 0"/>
+      <mass value="0.044351271100451166"/>
+      <inertia ixx="2e-06" iyy="9e-06" izz="9e-06" ixy="0.0" iyz="0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.013675 0.0327 -0.0175" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/Ultrasonic_Sensor_v1_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.013675 0.0327 -0.0175" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/Ultrasonic_Sensor_v1_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== LEFT LEG ==================== -->
+  <link name="LeftLeg">
+    <inertial>
+      <origin xyz="-5.2388648974499574e-15 -8.637669678136825e-05 -0.018540132277720882" rpy="0 0 0"/>
+      <mass value="0.008295768110971864"/>
+      <inertia ixx="3e-06" iyy="2e-06" izz="2e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.026 -0.0 0.039" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/LeftLeg_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.026 -0.0 0.039" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/LeftLeg_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== RIGHT LEG ==================== -->
+  <link name="RightLeg">
+    <inertial>
+      <origin xyz="5.2111093218343285e-15 1.0223024729097876e-05 -0.018677042906013082" rpy="0 0 0"/>
+      <mass value="0.00834817521109724"/>
+      <inertia ixx="3e-06" iyy="2e-06" izz="2e-06" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.026 -0.0 0.039" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/RightLeg_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0.026 -0.0 0.039" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/RightLeg_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== LEFT FOOT ==================== -->
+  <link name="FootL">
+    <inertial>
+      <origin xyz="0.00769955986687847 0.01692805001715702 -0.012894741270675025" rpy="0 0 0"/>
+      <mass value="0.01274684267714529"/>
+      <inertia ixx="5e-06" iyy="2e-06" izz="7e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.026 0.02 0.07" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/FootL_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.026 0.02 0.07" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/FootL_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== RIGHT FOOT ==================== -->
+  <link name="FootR">
+    <inertial>
+      <origin xyz="-0.007697901006662889 0.01692768844509805 -0.01289566987647009" rpy="0 0 0"/>
+      <mass value="0.012749332366692666"/>
+      <inertia ixx="5e-06" iyy="2e-06" izz="7e-06" ixy="0.0" iyz="0.0" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.026 0.0185 0.07" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/FootR_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="silver"/>
+    </visual>
+    <collision>
+      <origin xyz="0.026 0.0185 0.07" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://iMech_Otto_description/meshes/FootR_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== JOINTS ==================== -->
+
+  <!-- base_link → Head (fixo) -->
+  <joint name="base_link_Head" type="fixed">
+    <parent link="base_link"/>
+    <child link="Head"/>
+    <origin xyz="0.033 0.0 -0.007" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Head → Ultrasonic Sensor (fixo) -->
+  <joint name="Head_Ultrasonic_Sensor" type="fixed">
+    <parent link="Head"/>
+    <child link="Ultrasonic_Sensor"/>
+    <origin xyz="0.013675 -0.0327 0.0175" rpy="0 0 0"/>
+  </joint>
+
+  <!-- base_link → LeftLeg (revolute - servo hip esquerdo) -->
+  <joint name="base_link_LeftLeg" type="revolute">
+    <parent link="base_link"/>
+    <child link="LeftLeg"/>
+    <origin xyz="-0.026 0.0 -0.039" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.5708" upper="1.5708" effort="1.0" velocity="1.0"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <!-- base_link → RightLeg (revolute - servo hip direito) -->
+  <joint name="base_link_RightLeg" type="revolute">
+    <parent link="base_link"/>
+    <child link="RightLeg"/>
+    <origin xyz="0.026 0.0 -0.039" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.5708" upper="1.5708" effort="1.0" velocity="1.0"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <!-- LeftLeg → FootL (revolute - servo ankle esquerdo) -->
+  <joint name="LeftLeg_FootL" type="revolute">
+    <parent link="LeftLeg"/>
+    <child link="FootL"/>
+    <origin xyz="0.0 -0.02 -0.031" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.5708" upper="1.5708" effort="1.0" velocity="1.0"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <!-- RightLeg → FootR (revolute - servo ankle direito) -->
+  <joint name="RightLeg_FootR" type="revolute">
+    <parent link="RightLeg"/>
+    <child link="FootR"/>
+    <origin xyz="0.0 -0.0185 -0.031" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.5708" upper="1.5708" effort="1.0" velocity="1.0"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+</robot>
