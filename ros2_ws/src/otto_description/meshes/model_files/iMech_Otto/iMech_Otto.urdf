@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<robot name="iMech_Otto">
+
+<material name="silver">
+  <color rgba="0.700 0.700 0.700 1.000"/>
+</material>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.0005754821381836296 -0.0025491072307680606 -0.028118600817090788" rpy="0 0 0"/>
+    <mass value="0.03411173268521051"/>
+    <inertia ixx="2.8326618689746305e-05" iyy="2.592837073748811e-05" izz="4.365007815405008e-05" ixy="-1.8835503343515625e-07" iyz="6.746454538969529e-07" ixz="7.501077618930227e-08"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
