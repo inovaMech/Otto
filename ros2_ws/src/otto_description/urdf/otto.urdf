@@ -33,14 +33,14 @@
       <inertia ixx="3e-06" iyy="2e-06" izz="2e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
     </inertial>
     <visual>
-      <origin xyz="-0.026 -0.0 0.039" rpy="0 0 0"/>
+      <origin xyz="-0.026 0.05 -0.021" rpy="0 0 -1.5708"/>
       <geometry>
         <mesh filename="file:///ros2_ws/src/otto_description/meshes/leg_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
-      <origin xyz="-0.026 -0.0 0.039" rpy="0 0 0"/>
+      <origin xyz="-0.026 0.05 -0.021" rpy="0 0 -1.5708"/>
       <geometry>
         <mesh filename="file:///ros2_ws/src/otto_description/meshes/leg_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -54,19 +54,20 @@
       <inertia ixx="3e-06" iyy="2e-06" izz="2e-06" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
     </inertial>
     <visual>
-      <origin xyz="0.026 -0.0 0.039" rpy="0 0 0"/>
+      <origin xyz="0.026 0.050 -0.021" rpy="0 0 -1.5708"/>
       <geometry>
         <mesh filename="file:///ros2_ws/src/otto_description/meshes/leg_right.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
-      <origin xyz="0.026 -0.0 0.039" rpy="0 0 0"/>
+      <origin xyz="0.026 0.050 -0.021" rpy="0 0 -1.5708"/>
       <geometry>
         <mesh filename="file:///ros2_ws/src/otto_description/meshes/leg_right.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
+
 
   <link name="foot_left">
     <inertial>
@@ -75,14 +76,14 @@
       <inertia ixx="5e-06" iyy="2e-06" izz="7e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
     </inertial>
     <visual>
-      <origin xyz="-0.026 0.02 0.07" rpy="0 0 0"/>
+      <origin xyz="0 0 0.021" rpy="0 0 0"/>
       <geometry>
         <mesh filename="file:///ros2_ws/src/otto_description/meshes/foot_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
-      <origin xyz="-0.026 0.02 0.07" rpy="0 0 0"/>
+      <origin xyz="0 0 0.021" rpy="0 0 0"/>
       <geometry>
         <mesh filename="file:///ros2_ws/src/otto_description/meshes/foot_left.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -96,14 +97,14 @@
       <inertia ixx="5e-06" iyy="2e-06" izz="7e-06" ixy="0.0" iyz="0.0" ixz="-0.0"/>
     </inertial>
     <visual>
-      <origin xyz="0.026 0.0185 0.07" rpy="0 0 0"/>
+      <origin xyz="0 0 0.021" rpy="0 0 0"/>
       <geometry>
         <mesh filename="file:///ros2_ws/src/otto_description/meshes/foot_right.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
-      <origin xyz="0.026 0.0185 0.07" rpy="0 0 0"/>
+      <origin xyz="0 0 0.021" rpy="0 0 0"/>
       <geometry>
         <mesh filename="file:///ros2_ws/src/otto_description/meshes/foot_right.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -193,7 +194,7 @@
   <joint name="head_joint" type="fixed">
     <parent link="base_link"/>
     <child link="head"/>
-    <origin xyz="0.033 0.0 -0.007" rpy="0 0 0"/>
+    <origin xyz="0.033 0.0 -0.007" rpy="3.14159 0 0"/>
   </joint>
 
   <joint name="ultrasonic_joint" type="fixed">
