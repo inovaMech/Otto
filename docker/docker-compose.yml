@@ -3,12 +3,12 @@
 # Uso: docker compose up
 # ============================================================
 services:
-  otto_sim:
-    image: unirobotica/otto_sim:latest      # imagem publicada no Docker Hub
-    # build:                                 # descomente para buildar localmente
-    #   context: ..
-    #   dockerfile: docker/Dockerfile
-    container_name: otto_sim
+  otto:
+    # image: inovamech/otto:latest           # imagem publicada no Docker Hub (descomente após publicar)
+    build:                                   # build local
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: otto
     stdin_open: true
     tty: true
     network_mode: host                       # ROS 2 DDS precisa de rede host

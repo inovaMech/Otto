@@ -3,9 +3,9 @@ project(otto_description)
 
 find_package(ament_cmake REQUIRED)
 
-# Instala pastas de recursos
+# Instala os recursos colocando cada pasta inteira no diretório share
 install(
-  DIRECTORY urdf meshes launch rviz
+  DIRECTORY launch urdf meshes rviz
   DESTINATION share/${PROJECT_NAME}
 )
 

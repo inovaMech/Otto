@@ -26,7 +26,7 @@ cd docker
 docker compose up -d
 
 # 3. Entrar no container
-docker exec -it otto_sim bash
+docker exec -it otto bash
 
 # 4. Visualizar o URDF (sem ROS, hot reload)
 urdf-viz /ros2_ws/src/otto_description/urdf/otto.urdf

@@ -1,0 +1,28 @@
+# Ignorar arquivos de core dump
+core.*
+*.core
+
+# Ignorar diretórios de build e instalação
+build/
+install/
+log/
+
+# Ignorar arquivos temporários do editor
+*.swp
+*.swo
+*~
+
+# Ignorar arquivos gerados por colcon
+.colcon/
+
+# Ignorar arquivos de configuração locais
+.vscode/
+.idea/
+
+# Ignorar arquivos Python compilados
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar arquivos de cache
+*.cache
