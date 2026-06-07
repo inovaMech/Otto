@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="otto" xmlns:xacro="http://www.ros.org/wiki/xacro">
+   <material name="silver_default">
+      <color rgba="0.700 0.700 0.700 1.000" />
+   </material>
+   <material name="ABS{Branco}">
+      <color rgba="0.9647058823529412 0.9647058823529412 0.9529411764705882 1.0" />
+   </material>
+   <material name="Plástico_Fosco{Amarelo}">
+      <color rgba="0.03529411764705882 1.0 0.0 1.0" />
+   </material>
+   <material name="Opaque{20,22,159}">
+      <color rgba="0.0784313725490196 0.08627450980392157 0.6235294117647059 1.0" />
+   </material>
+   <material name="Alumínio_Polido">
+      <color rgba="0.9607843137254902 0.9607843137254902 0.9647058823529412 1.0" />
+   </material>
+   <material name="Aço_Acetinado">
+      <color rgba="0.6274509803921569 0.6274509803921569 0.6274509803921569 1.0" />
+   </material>
+   <material name="Alumínio_Anodizadobruto{Cinza}">
+      <color rgba="0.5372549019607843 0.5372549019607843 0.5372549019607843 1.0" />
+   </material>
+   <material name="Materialdebase–Transparente">
+      <color rgba="1.0 1.0 1.0 1.0" />
+   </material>
+</robot>

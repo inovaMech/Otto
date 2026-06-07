@@ -1,10 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="otto">
    <xacro:include filename="$(find otto)/urdf/materials.xacro" />
-
-   <!-- ==================== LINKS ==================== -->
-
-   <link name="base_link">
+   <link name="dummy_link" />
+   <joint name="dummy_link_joint" type="fixed">
+      <parent link="dummy_link" />
+      <child link="base_link:1" />
+   </joint>
+   <link name="base_link_1">
       <inertial>
          <origin xyz="-0.017480908878091606 0.03519882134873651 -0.025083002755304264" rpy="0.0 0.0 0.0" />
          <mass value="0.03208248801839897" />
@@ -24,7 +26,6 @@
          </geometry>
       </collision>
    </link>
-
    <link name="RightLeg_1">
       <inertial>
          <origin xyz="-1.0223024729112406e-05 0.0 -0.01867704290601307" rpy="0.0 0.0 0.0" />
@@ -45,7 +46,6 @@
          </geometry>
       </collision>
    </link>
-
    <link name="LeftLeg_1">
       <inertial>
          <origin xyz="8.637669678136283e-05 0.0 -0.018540132277720875" rpy="0.0 0.0 0.0" />
@@ -66,7 +66,6 @@
          </geometry>
       </collision>
    </link>
-
    <link name="Ultrasonic_Sensor_v1_1_1">
       <inertial>
          <origin xyz="0.015667100965246424 0.035094427086301554 0.015158230340085038" rpy="0.0 0.0 0.0" />
@@ -178,7 +177,6 @@
          </geometry>
       </collision>
    </link>
-
    <link name="Head_1_1">
       <inertial>
          <origin xyz="-0.017855193601269966 0.03577461405901634 0.019109172286024715" rpy="0.0 0.0 0.0" />
@@ -199,7 +197,6 @@
          </geometry>
       </collision>
    </link>
-
    <link name="FootRight_1">
       <inertial>
          <origin xyz="-0.01692768844509787 -0.0076979010066632785 -0.010195669876470142" rpy="0.0 0.0 0.0" />
@@ -220,7 +217,6 @@
          </geometry>
       </collision>
    </link>
-
    <link name="FootLeft_1">
       <inertial>
          <origin xyz="-0.016928050017156856 0.004599559866878043 -0.012894741270675017" rpy="0.0 0.0 0.0" />
@@ -241,51 +237,42 @@
          </geometry>
       </collision>
    </link>
-
-   <!-- ==================== JOINTS ==================== -->
-
-   <joint name="leg_right_joint" type="revolute">
+   <joint name="Revolucionar46" type="revolute">
       <origin xyz="-0.012391174437753782 0.005158205912836682 -0.039" rpy="0.0 0.0 0.0" />
-      <parent link="base_link" />
+      <parent link="base_link_1" />
       <child link="RightLeg_1" />
       <axis xyz="0.0 0.0 1.0" />
       <limit upper="1.5707963267948966" lower="-1.5707963267948966" effort="100.0" velocity="100.0" />
    </joint>
-
-   <joint name="leg_left_joint" type="revolute">
+   <joint name="Revolucionar47" type="revolute">
       <origin xyz="-0.016999572875253794 0.061000427124746216 -0.037000000000000005" rpy="0.0 0.0 0.0" />
-      <parent link="base_link" />
+      <parent link="base_link_1" />
       <child link="LeftLeg_1" />
       <axis xyz="0.0 0.0 -1.0" />
       <limit upper="1.5707963267948966" lower="-1.5707963267948966" effort="100.0" velocity="100.0" />
    </joint>
-
-   <joint name="ultrasonic_joint" type="fixed">
+   <joint name="Gruporígido43" type="fixed">
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-      <parent link="base_link" />
+      <parent link="base_link_1" />
       <child link="Ultrasonic_Sensor_v1_1_1" />
    </joint>
-
-   <joint name="head_joint" type="fixed">
+   <joint name="Gruporígido43_0" type="fixed">
       <origin xyz="0.00011642897127504436 6.011660760218973e-07 -0.0009665825749333657" rpy="0.0 0.0 0.0" />
-      <parent link="base_link" />
+      <parent link="base_link_1" />
       <child link="Head_1_1" />
    </joint>
-
-   <joint name="foot_right_joint" type="revolute">
+   <joint name="Revolucionar45" type="revolute">
       <origin xyz="0.0179 0.0 -0.031" rpy="0.0 0.0 0.0" />
       <parent link="RightLeg_1" />
       <child link="FootRight_1" />
       <axis xyz="1.0 0.0 0.0" />
       <limit upper="1.5707963267948966" lower="-1.5707963267948966" effort="100.0" velocity="100.0" />
    </joint>
-
-   <joint name="foot_left_joint" type="revolute">
+   <joint name="Revolucionar44" type="revolute">
       <origin xyz="0.0175 0.0 -0.031" rpy="0.0 0.0 0.0" />
       <parent link="LeftLeg_1" />
       <child link="FootLeft_1" />
       <axis xyz="1.0 0.0 0.0" />
       <limit upper="1.5707963267948966" lower="-1.5707963267948966" effort="100.0" velocity="100.0" />
    </joint>
-
 </robot>

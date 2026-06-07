@@ -1,0 +1,14 @@
+URDF structure created from Fusion Model otto v1:
+    - Link: base_link:1
+       - Joint [revolute]: Revolucionar 46
+          - Link: RightLeg:1
+             - Joint [revolute]: Revolucionar 45
+                - Link: FootRight:1
+       - Joint [revolute]: Revolucionar 47
+          - Link: LeftLeg:1
+             - Joint [revolute]: Revolucionar 44
+                - Link: FootLeft:1
+       - Joint [fixed]: Grupo rígido 43
+          - Link: Ultrasonic_Sensor_v1_1:1
+       - Joint [fixed]: Grupo rígido 43_0
+          - Link: Head_1:1

@@ -3,6 +3,9 @@ docker start otto && docker exec -it otto bash
 
 cd /ros2_ws && \
 rm -rf build install && \
-source /opt/ros/jazzy/setup.bash && cd /ros2_ws && colcon build --packages-select otto_description && source install/setup.bash && ros2 launch otto_description display.launch.py
+source /opt/ros/jazzy/setup.bash && \
+colcon build --packages-select otto &&\
+source install/setup.bash &&\
+ros2 launch otto robot_description.launch.py
 
 source /opt/ros/jazzy/setup.bash && source /ros2_ws/install/setup.bash && ros2 launch otto_description display.launch.py
