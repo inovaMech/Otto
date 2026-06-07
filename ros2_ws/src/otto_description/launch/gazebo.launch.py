@@ -79,7 +79,7 @@ def generate_launch_description():
             '-topic', 'robot_description',
             '-name', 'otto',
             '-z', '0.15',
-            '-Y', '1.5707963',  # rotação 90° em yaw se necessário
+            '-Y', '3.1415926',
         ],
         output='both'
     )
