@@ -1,4 +1,27 @@
+
 docker start otto && docker exec -it otto bash
+
+---------
+
+cd /ros2_ws && rm -rf build install && source /opt/ros/jazzy/setup.bash && colcon build --packages-select otto
+
+**Terminal 1** — Gazebo:
+```bash
+source /ros2_ws/install/setup.bash && ros2 launch otto gazebo.launch.py
+```
+
+**Terminal 2** — nó de walking:
+```bash
+source /ros2_ws/install/setup.bash && python3 /ros2_ws/install/otto/share/otto/scripts/otto_walk.py
+```
+
+**Terminal 3** — comando:
+```bash
+source /ros2_ws/install/setup.bash && ros2 topic pub --once /otto/cmd std_msgs/msg/String "data: walk"
+```
+
+
+------
 
 
 cd /ros2_ws && \
