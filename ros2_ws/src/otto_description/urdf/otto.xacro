@@ -288,4 +288,40 @@
       <limit upper="1.5707963267948966" lower="-1.5707963267948966" effort="100.0" velocity="100.0" />
    </joint>
 
+   <!-- Plugin Gazebo para cada junta -->
+  <gazebo>
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>leg_right_joint</joint_name>
+      <topic>/leg_right_joint/cmd</topic>
+      <p_gain>10</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.5</d_gain>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>leg_left_joint</joint_name>
+      <topic>/leg_left_joint/cmd</topic>
+      <p_gain>10</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.5</d_gain>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>foot_right_joint</joint_name>
+      <topic>/foot_right_joint/cmd</topic>
+      <p_gain>10</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.5</d_gain>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+      <joint_name>foot_left_joint</joint_name>
+      <topic>/foot_left_joint/cmd</topic>
+      <p_gain>10</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.5</d_gain>
+    </plugin>
+  </gazebo>
+
 </robot>
