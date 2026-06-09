@@ -78,8 +78,13 @@ def generate_launch_description():
         arguments=[
             '-topic', 'robot_description',
             '-name', 'otto',
+<<<<<<< HEAD
             '-z', '0.10',
             '-Y', '3.1415926',
+=======
+            '-z', '0.15',
+            '-Y', '1.5707963',  # rotação 90° em yaw se necessário
+>>>>>>> parent of 3854958 (gazebo otto frente e em pé)
         ],
         output='both'
     )
