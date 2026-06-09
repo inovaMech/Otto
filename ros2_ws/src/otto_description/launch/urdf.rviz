@@ -72,15 +72,15 @@ Visualization Manager:
       Frame Timeout: 15
       Marker Scale: 0.5
       Name: TF
-      Show Arrows: false
-      Show Axes: false
+      Show Arrows: true
+      Show Axes: true
       Show Names: false
       Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_link
+    Fixed Frame: dummy_link
     Frame Rate: 30
   Name: root
   Tools:
