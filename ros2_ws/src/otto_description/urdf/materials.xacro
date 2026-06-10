@@ -21,7 +21,7 @@
    <material name="Alumínio_Anodizadobruto{Cinza}">
       <color rgba="0.5372549019607843 0.5372549019607843 0.5372549019607843 1.0" />
    </material>
-   <material name="Materialdebase–Transparente">
+   <material name="Materialdebase-Transparente">
       <color rgba="1.0 1.0 1.0 1.0" />
    </material>
 </robot>

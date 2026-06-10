@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from launch_ros.parameter_descriptions import ParameterValue
 from launch import LaunchDescription
 from launch.substitutions import Command, FindExecutable, PathJoinSubstitution
 from launch.actions import IncludeLaunchDescription, AppendEnvironmentVariable
@@ -10,22 +11,15 @@ from ament_index_python.packages import get_package_share_directory, get_package
 
 def generate_launch_description():
 
-    ###### ROBOT DESCRIPTION ######
     robot_description_content = Command(
         [
-            PathJoinSubstitution([FindExecutable(name="xacro")]),
+            PathJoinSubstitution([FindExecutable(name="cat")]),
             " ",
-            PathJoinSubstitution(
-                [
-                    FindPackageShare("otto"),
-                    "urdf",
-                    "otto.xacro",
-                ]
-            ),
+            PathJoinSubstitution([FindPackageShare("otto"), "urdf", "otto.urdf"]),
         ]
     )
 
-    robot_description = {"robot_description": robot_description_content}
+    robot_description = {"robot_description": ParameterValue(robot_description_content, value_type=str)}
 
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -43,11 +37,7 @@ def generate_launch_description():
 
     ###### RVIZ ######
     rviz_config_file = PathJoinSubstitution(
-        [
-            FindPackageShare("otto"),
-            "launch",
-            "urdf.rviz",
-        ]
+        [FindPackageShare("otto"), "launch", "urdf.rviz"]
     )
 
     rviz_node = Node(
@@ -58,16 +48,13 @@ def generate_launch_description():
         output='screen'
     )
 
-    ###### GAZEBO HARMONIC (ros_gz_sim) ######
+    ###### GAZEBO HARMONIC ######
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
-            PathJoinSubstitution(
-                [
-                    get_package_share_directory("ros_gz_sim"),
-                    "launch",
-                    "gz_sim.launch.py",
-                ]
-            )
+            PathJoinSubstitution([
+                get_package_share_directory("ros_gz_sim"),
+                "launch", "gz_sim.launch.py",
+            ])
         ]),
         launch_arguments={"gz_args": "-r empty.sdf"}.items(),
     )
@@ -78,13 +65,8 @@ def generate_launch_description():
         arguments=[
             '-topic', 'robot_description',
             '-name', 'otto',
-<<<<<<< HEAD
-            '-z', '0.10',
-            '-Y', '3.1415926',
-=======
-            '-z', '0.15',
-            '-Y', '1.5707963',  # rotação 90° em yaw se necessário
->>>>>>> parent of 3854958 (gazebo otto frente e em pé)
+            '-z', '0.033',
+            '-Y', '3.1407',
         ],
         output='both'
     )
@@ -94,11 +76,27 @@ def generate_launch_description():
         PathJoinSubstitution([get_package_prefix("otto"), "share"])
     )
 
+    ###### BRIDGE ROS2 <-> GAZEBO ######
+    bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='ros_gz_bridge',
+        arguments=[
+            '/world/empty/model/otto/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
+            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+        ],
+        remappings=[
+            ('/world/empty/model/otto/joint_state', '/joint_states'),
+        ],
+        output='screen'
+    )
+
     return LaunchDescription([
         gazebo_env,
         robot_state_publisher_node,
-        joint_state_publisher_gui_node,
         rviz_node,
         gazebo,
         spawn_entity,
+        joint_state_publisher_gui_node,
+        bridge,
     ])

@@ -4,23 +4,27 @@ from launch import LaunchDescription
 from launch.substitutions import Command, FindExecutable, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+from launch_ros.parameter_descriptions import ParameterValue
+
 
 def generate_launch_description():
 
 
-    robot_description_content = Command(
-        [
-            PathJoinSubstitution([FindExecutable(name="xacro")]),
-            " ",
-            PathJoinSubstitution(
-                [
-                    FindPackageShare("otto"),
-                    "urdf",
-                    "otto.xacro",
-                ]
-            ),
-
-        ]
+    robot_description_content = ParameterValue(
+        Command(
+            [
+                PathJoinSubstitution([FindExecutable(name="xacro")]),
+                " ",
+                PathJoinSubstitution(
+                    [
+                        FindPackageShare("otto"),
+                        "urdf",
+                        "otto.xacro",
+                    ]
+                ),
+            ]
+        ),
+        value_type=str
     )
 
     robot_description = {"robot_description": robot_description_content}
