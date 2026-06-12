@@ -1,0 +1,748 @@
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto_matlab_abs.urdf');
+config = homeConfiguration(robot);
+
+% Postura: passo direito
+config(3).JointPosition = 0.3;   % leg_right avança
+config(4).JointPosition = 0.2;   % foot_right levanta ponta
+config(1).JointPosition = -0.3;  % leg_left recua
+config(2).JointPosition = 0.0;   % foot_left plano
+
+show(robot, config, 'Frames', 'off');
+title('Passo direito');
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+% Postura: passo direito
+config(3).JointPosition = 0.3;   % leg_right avança
+config(4).JointPosition = 0.2;   % foot_right levanta ponta
+config(1).JointPosition = -0.3;  % leg_left recua
+config(2).JointPosition = 0.0;   % foot_left plano
+
+show(robot, config, 'Frames', 'off');
+title('Passo direito');
+config(3).JointPosition = 1;   % leg_right avança
+config(3).JointPosition = 1.5;   % leg_right avança
+config = homeConfiguration(robot);
+
+% Postura: passo direito
+config(3).JointPosition = 1;   % leg_right avança
+config(4).JointPosition = 0.5;   % foot_right levanta ponta
+config(1).JointPosition = -1;  % leg_left recua
+config(2).JointPosition = 0.0;   % foot_left plano
+
+show(robot, config, 'Frames', 'off');
+title('Passo direito');
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+% Sequencia de 4 posturas do ciclo de caminhada
+posturas = [
+%  leg_left  foot_left  leg_right  foot_right
+    0.0       0.0        0.3        0.2;   % passo direito
+    0.0       0.0        0.3        0.0;   % pé direito abaixa
+   -0.3       0.2        0.0        0.0;   % passo esquerdo
+   -0.3       0.0        0.0        0.0;   % pé esquerdo abaixa
+    0.0       0.0        0.0        0.0;   % neutro
+];
+
+for i = 1:size(posturas, 1)
+    config(1).JointPosition = posturas(i,1);
+    config(2).JointPosition = posturas(i,2);
+    config(3).JointPosition = posturas(i,3);
+    config(4).JointPosition = posturas(i,4);
+    show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+    title(sprintf('Postura %d', i));
+    pause(0.5);
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+% Sequencia de 4 posturas do ciclo de caminhada
+posturas = [
+%  leg_left  foot_left  leg_right  foot_right
+    0.0       0.0        0.3        0.2;   % passo direito
+    0.0       0.0        0.3        0.0;   % pé direito abaixa
+   -0.3       0.2        0.0        0.0;   % passo esquerdo
+   -0.3       0.0        0.0        0.0;   % pé esquerdo abaixa
+    0.0       0.0        0.0        0.0;   % neutro
+];
+
+for i = 1:size(posturas, 1)
+    config(1).JointPosition = posturas(i,1);
+    config(2).JointPosition = posturas(i,2);
+    config(3).JointPosition = posturas(i,3);
+    config(4).JointPosition = posturas(i,4);
+    show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+    title(sprintf('Postura %d', i));
+    pause(0.5);
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+ax = gca;
+ax.CameraViewAngle = 5;  % zoom
+
+posturas = [
+%  leg_left  foot_left  leg_right  foot_right
+    0.0       0.0        0.3        0.2;
+    0.0       0.0        0.3        0.0;
+   -0.3       0.2        0.0        0.0;
+   -0.3       0.0        0.0        0.0;
+    0.0       0.0        0.0        0.0;
+];
+
+titulos = {
+    'Passo direito - perna avanca e pe levanta'
+    'Passo direito - pe abaixa'
+    'Passo esquerdo - perna avanca e pe levanta'
+    'Passo esquerdo - pe abaixa'
+    'Postura neutra'
+};
+
+n_cycles = 6;  % repetir 3 vezes
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        % Interpolar suavemente entre posturas
+        if i == 1
+            p_prev = posturas(end,:);
+        else
+            p_prev = posturas(i-1,:);
+        end
+        p_next = posturas(i,:);
+        
+        steps = 20;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+            pause(0.05);
+        end
+        pause(0.3);
+    end
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+fig = figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+
+% Zoom manual - ajuste estes valores conforme necessário
+xlim([-0.15 0.15]);
+ylim([-0.15 0.15]);
+zlim([-0.05 0.20]);
+view(45, 20);
+
+posturas = [
+    0.0   0.0   0.3   0.2;
+    0.0   0.0   0.3   0.0;
+   -0.3   0.2   0.0   0.0;
+   -0.3   0.0   0.0   0.0;
+    0.0   0.0   0.0   0.0;
+];
+
+titulos = {
+    'Passo direito - perna avanca e pe levanta'
+    'Passo direito - pe abaixa'
+    'Passo esquerdo - perna avanca e pe levanta'
+    'Passo esquerdo - pe abaixa'
+    'Postura neutra'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        if i == 1
+            p_prev = posturas(end,:);
+        else
+            p_prev = posturas(i-1,:);
+        end
+        p_next = posturas(i,:);
+        steps = 20;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]);
+            ylim([-0.15 0.15]);
+            zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+            pause(0.05);
+        end
+        pause(0.3);
+    end
+end
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('robotics.manip.internal.RigidBodyTreeVisualizationHelper/deleteUIContextMenuUponPatchDestruction', 'C:\Program Files\MATLAB\R2026a\toolbox\robotics\robotmanip\+robotics\+manip\+internal\RigidBodyTreeVisualizationHelper.m', 810)" style="font-weight:bold">robotics.manip.internal.RigidBodyTreeVisualizationHelper/deleteUIContextMenuUponPatchDestruction</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2026a\toolbox\robotics\robotmanip\+robotics\+manip\+internal\RigidBodyTreeVisualizationHelper.m',810,0)">line 810</a>)
+} 
+Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('clo', 'C:\Program Files\MATLAB\R2026a\toolbox\matlab\graphics\graphics\private\clo.m', 53)" style="font-weight:bold">clo</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2026a\toolbox\matlab\graphics\graphics\private\clo.m',53,0)">line 53</a>)
+Interrupt while evaluating Patch DeleteFcn.
+
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+posturas = [
+    0.0   0.0   0.3   0.2;
+    0.0   0.0   0.3   0.0;
+   -0.3   0.2   0.0   0.0;
+   -0.3   0.0   0.0   0.0;
+    0.0   0.0   0.0   0.0;
+];
+
+titulos = {
+    'Passo direito - perna avanca e pe levanta'
+    'Passo direito - pe abaixa'
+    'Passo esquerdo - perna avanca e pe levanta'
+    'Passo esquerdo - pe abaixa'
+    'Postura neutra'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        p_prev = posturas(max(i-1, 1),:);
+        if i == 1, p_prev = posturas(end,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+posturas = [
+    0.0   0.0   0.3   0.2;
+    0.0   0.0   0.3   0.0;
+   -0.3   0.2   0.0   0.0;
+   -0.3   0.0   0.0   0.0;
+    0.0   0.0   0.0   0.0;
+];
+
+titulos = {
+    'Passo direito - perna avanca e pe levanta'
+    'Passo direito - pe abaixa'
+    'Passo esquerdo - perna avanca e pe levanta'
+    'Passo esquerdo - pe abaixa'
+    'Postura neutra'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        p_prev = posturas(max(i-1, 1),:);
+        if i == 1, p_prev = posturas(end,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('robotics.manip.internal.RigidBodyTreeVisualizationHelper/deleteUIContextMenuUponPatchDestruction', 'C:\Program Files\MATLAB\R2026a\toolbox\robotics\robotmanip\+robotics\+manip\+internal\RigidBodyTreeVisualizationHelper.m', 810)" style="font-weight:bold">robotics.manip.internal.RigidBodyTreeVisualizationHelper/deleteUIContextMenuUponPatchDestruction</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2026a\toolbox\robotics\robotmanip\+robotics\+manip\+internal\RigidBodyTreeVisualizationHelper.m',810,0)">line 810</a>)
+} 
+Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('clo', 'C:\Program Files\MATLAB\R2026a\toolbox\matlab\graphics\graphics\private\clo.m', 53)" style="font-weight:bold">clo</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2026a\toolbox\matlab\graphics\graphics\private\clo.m',53,0)">line 53</a>)
+Interrupt while evaluating Patch DeleteFcn.
+
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+posturas = [
+    0.0   0.0   0.3   0.2;
+    0.0   0.0   0.3   0.0;
+   -0.3   0.2   0.0   0.0;
+   -0.3   0.0   0.0   0.0;
+    0.0   0.0   0.0   0.0;
+];
+
+titulos = {
+    'Passo direito - perna avanca e pe levanta'
+    'Passo direito - pe abaixa'
+    'Passo esquerdo - perna avanca e pe levanta'
+    'Passo esquerdo - pe abaixa'
+    'Postura neutra'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        p_prev = posturas(max(i-1, 1),:);
+        if i == 1, p_prev = posturas(end,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.7 0.7]); ylim([-0.7 0.7]); zlim([-0.7 0.7]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+posturas = [
+    0.0   0.0   0.7   0.7;
+    0.0   0.0   0.7   0.0;
+    0.7   0.7   0.0   0.0;
+    0.7   0.0   0.0   0.0;
+    0.0   0.0   0.0   0.0;
+];
+
+titulos = {
+    'Passo direito - perna avanca e pe levanta'
+    'Passo direito - pe abaixa'
+    'Passo esquerdo - perna avanca e pe levanta'
+    'Passo esquerdo - pe abaixa'
+    'Postura neutra'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        p_prev = posturas(max(i-1, 1),:);
+        if i == 1, p_prev = posturas(end,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+[Warning: Update encountered failures.] 
+ robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+posturas = [
+    0.0   0.0   0.7   0.7;
+    0.0   0.0   0.7   0.0;
+    0.7   0.7   0.0   0.0;
+    0.7   0.0   0.0   0.0;
+    0.0   0.0   0.0   0.0;
+];
+
+titulos = {
+    'Passo direito - perna avanca e pe levanta'
+    'Passo direito - pe abaixa'
+    'Passo esquerdo - perna avanca e pe levanta'
+    'Passo esquerdo - pe abaixa'
+    'Postura neutra'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        p_prev = posturas(max(i-1, 1),:);
+        if i == 1, p_prev = posturas(end,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+ robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+posturas = [
+    0.0   0.0   0.7   0.7;
+    0.0   0.0   0.7   0.0;
+    0.7   -0.7   0.0   0.0;
+    0.7   0.0   0.0   0.0;
+    0.0   0.0   0.0   0.0;
+];
+
+titulos = {
+    'Passo direito - perna avanca e pe levanta'
+    'Passo direito - pe abaixa'
+    'Passo esquerdo - perna avanca e pe levanta'
+    'Passo esquerdo - pe abaixa'
+    'Postura neutra'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        p_prev = posturas(max(i-1, 1),:);
+        if i == 1, p_prev = posturas(end,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+% Sequencia correta:
+% leg_left(1) foot_left(2) leg_right(3) foot_right(4)
+posturas = [
+    0.0   0.0   0.0   0.0;   % neutro
+    0.0   0.2   0.0   0.0;   % pe esquerdo levanta
+   -0.3   0.2   0.0   0.0;   % perna esquerda recua
+    0.0   0.0   0.0   0.0;   % pe esquerdo abaixa, perna volta neutro
+    0.0   0.0   0.0   0.2;   % pe direito levanta
+    0.0   0.0  -0.3   0.2;   % perna direita recua
+    0.0   0.0   0.0   0.0;   % pe direito abaixa, perna volta neutro
+];
+
+titulos = {
+    'Neutro'
+    'Pe esquerdo levanta'
+    'Perna esquerda recua'
+    'Pe esquerdo abaixa - volta neutro'
+    'Pe direito levanta'
+    'Perna direita recua'
+    'Pe direito abaixa - volta neutro'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        if i == 1, p_prev = posturas(end,:);
+        else, p_prev = posturas(i-1,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+% Sequencia correta:
+% leg_left(1) foot_left(2) leg_right(3) foot_right(4)
+posturas = [
+    0.0   0.0   0.0   0.0;   % neutro
+    0.0   0.2   0.0   0.0;   % pe esquerdo levanta
+   -0.3   0.2   0.0   0.0;   % perna esquerda recua
+    0.0   0.0   0.0   0.0;   % pe esquerdo abaixa, perna volta neutro
+    0.0   0.0   0.0   0.2;   % pe direito levanta
+    0.0   0.0  -0.3   0.2;   % perna direita recua
+    0.0   0.0   0.0   0.0;   % pe direito abaixa, perna volta neutro
+];
+
+titulos = {
+    'Neutro'
+    'Pe esquerdo levanta'
+    'Perna esquerda recua'
+    'Pe esquerdo abaixa - volta neutro'
+    'Pe direito levanta'
+    'Perna direita recua'
+    'Pe direito abaixa - volta neutro'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        if i == 1, p_prev = posturas(end,:);
+        else, p_prev = posturas(i-1,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+% Sequencia correta:
+% leg_left(1) foot_left(2) leg_right(3) foot_right(4)
+posturas = [
+    0.0   0.0   0.0   0.0;   % neutro
+    0.0   0.2   0.0   0.0;   % pe esquerdo levanta
+   -0.3   0.2   0.0   0.0;   % perna esquerda recua
+    0.0   0.0   0.0   0.0;   % pe esquerdo abaixa, perna volta neutro
+    0.0   0.0   0.0   -0.2;   % pe direito levanta
+    0.0   0.0  -0.3   -0.2;   % perna direita recua
+    0.0   0.0   0.0   0.0;   % pe direito abaixa, perna volta neutro
+];
+
+titulos = {
+    'Neutro'
+    'Pe esquerdo levanta'
+    'Perna esquerda recua'
+    'Pe esquerdo abaixa - volta neutro'
+    'Pe direito levanta'
+    'Perna direita recua'
+    'Pe direito abaixa - volta neutro'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        if i == 1, p_prev = posturas(end,:);
+        else, p_prev = posturas(i-1,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+robot = importrobot('Z:\home\inovamech\otto\ros2_ws\src\otto_description\urdf\otto.urdf');
+config = homeConfiguration(robot);
+
+figure;
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+
+posturas = [
+    0.0   0.0   0.0   0.0;
+    0.0   0.2   0.0   0.0;
+   -0.3   0.2   0.0   0.0;
+   -0.3   0.0   0.0   0.0;
+    0.0   0.0   0.0   0.0;
+    0.0   0.0   0.0  -0.2;
+    0.0   0.0  -0.3  -0.2;
+    0.0   0.0  -0.3   0.0;
+    0.0   0.0   0.0   0.0;
+];
+
+titulos = {
+    'Neutro'
+    'Pe esquerdo levanta'
+    'Perna esquerda recua'
+    'Pe esquerdo abaixa'
+    'Perna esquerda volta neutro'
+    'Pe direito levanta'
+    'Perna direita recua'
+    'Pe direito abaixa'
+    'Perna direita volta neutro'
+};
+
+n_cycles = 3;
+for c = 1:n_cycles
+    for i = 1:size(posturas, 1)
+        if i == 1, p_prev = posturas(end,:);
+        else, p_prev = posturas(i-1,:); end
+        p_next = posturas(i,:);
+        steps = 8;
+        for s = 1:steps
+            t = s/steps;
+            p = p_prev + t*(p_next - p_prev);
+            config(1).JointPosition = p(1);
+            config(2).JointPosition = p(2);
+            config(3).JointPosition = p(3);
+            config(4).JointPosition = p(4);
+            show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+            xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+            view(45, 20);
+            title(sprintf('Ciclo %d/%d - %s', c, n_cycles, titulos{i}));
+            drawnow;
+        end
+        pause(0.1);
+    end
+end
+% Testar sinal positivo nos dois pes simultaneamente
+config = homeConfiguration(robot);
+config(2).JointPosition = 0.3;   % foot_left positivo
+config(4).JointPosition = 0.3;   % foot_right positivo
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+title('Ambos pes positivo - deveriam levantar igual');
+% Testar sinal positivo nos dois pes simultaneamente
+config = homeConfiguration(robot);
+config(2).JointPosition = 0.3;   % foot_left positivo
+config(4).JointPosition = -0.3;   % foot_right positivo
+show(robot, config, 'Frames', 'off', 'PreservePlot', false);
+xlim([-0.15 0.15]); ylim([-0.15 0.15]); zlim([-0.05 0.20]);
+view(45, 20);
+title('Ambos pes positivo - deveriam levantar igual');
+SimCaminhada
+{Error: <a href="matlab: opentoline('Z:\home\inovamech\otto\matlab\SimCaminhada.m',10,21)">File: SimCaminhada.m Line: 10 Column: 21</a>
+Unexpected '0.0'. Check for missing multiplication operator, missing or unbalanced delimiters, or other
+syntax error. To construct matrices, use brackets instead of parentheses.
+} 
+SimCaminhada
+{Error: <a href="matlab: opentoline('Z:\home\inovamech\otto\matlab\SimCaminhada.m',10,21)">File: SimCaminhada.m Line: 10 Column: 21</a>
+Unexpected '0.0'. Check for missing multiplication operator, missing or unbalanced delimiters, or other
+syntax error. To construct matrices, use brackets instead of parentheses.
+} 
+SimCaminhada
+{Error: <a href="matlab: opentoline('Z:\home\inovamech\otto\matlab\SimCaminhada.m',10,21)">File: SimCaminhada.m Line: 10 Column: 21</a>
+Unexpected '0.0'. Check for missing multiplication operator, missing or unbalanced delimiters, or other
+syntax error. To construct matrices, use brackets instead of parentheses.
+} 
+SimCaminhada
+{Error: <a href="matlab: opentoline('Z:\home\inovamech\otto\matlab\SimCaminhada.m',10,21)">File: SimCaminhada.m Line: 10 Column: 21</a>
+Unexpected '0.0'. Check for missing multiplication operator, missing or unbalanced delimiters, or other
+syntax error. To construct matrices, use brackets instead of parentheses.
+} 
+SimCaminhada
+{Error: <a href="matlab: opentoline('Z:\home\inovamech\otto\matlab\SimCaminhada.m',10,11)">File: SimCaminhada.m Line: 10 Column: 11</a>
+Unexpected '0.0'. Check for missing multiplication operator, missing or unbalanced delimiters, or other
+syntax error. To construct matrices, use brackets instead of parentheses.
+} 
+SimCaminhada
+SimCaminhada_rev1
+{Unrecognized function or variable 'SimCaminhada_rev1'.
+} 
+SimCaminhada_rev1
+{Unrecognized function or variable 'SimCaminhada_rev1'.
+} 
+SimCaminhada_rev1
+{Unrecognized function or variable 'SimCaminhada_rev1'.
+} 
+SimCaminhada_rev1
+clc

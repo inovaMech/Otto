@@ -49,3 +49,19 @@ ros2 launch otto gazebo.launch.py
 ---
 
 cd /ros2_ws && rm -rf build install && source /opt/ros/jazzy/setup.bash && colcon build --packages-select otto && source /ros2_ws/install/setup.bash && ros2 launch otto_description display.launch.py
+
+
+----------
+Problema de permissão no arquivo. Dentro do container `otto`, rode:
+
+```bash
+chmod 666 /ros2_ws/src/otto_description/scripts/walk.py
+```
+
+Ou pelo WSL, fora do container:
+
+```bash
+chmod 666 ~/otto/ros2_ws/src/otto_description/scripts/walk.py
+```
+
+Depois o VSCode consegue salvar normalmente.
