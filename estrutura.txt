@@ -1,0 +1,27 @@
+.
+├── LICENSE
+├── README.md
+├── comandos.txt
+├── docker
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── entrypoint.sh
+│   └── stl_report.txt
+├── estrutura.txt
+├── matlab
+│   ├── COM-Projecao.png
+│   ├── matlab.mat
+│   └── matlabRev1.mat
+├── octave
+└── ros2_ws
+    ├── build
+    │   ├── COLCON_IGNORE
+    │   └── otto
+    ├── install
+    ├── log
+    ├── media
+    │   └── OttoDeslizDeitado_Gravando 2026-06-08 094002.mp4
+    ├── scene.txt
+    └── src
+        ├── config.yaml
+        └── otto_description

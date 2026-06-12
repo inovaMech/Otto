@@ -339,36 +339,7 @@
         se lento/mole -> aumente P para 12-15
         se trepida -> aumente D para 0.8-1.0
    -->
-  <gazebo>
-    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
-      <joint_name>leg_right_joint</joint_name>
-      <topic>/leg_right_joint/cmd</topic>
-      <p_gain>10.0</p_gain>
-      <i_gain>0.0</i_gain>
-      <d_gain>0.5</d_gain>
-    </plugin>
-    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
-      <joint_name>leg_left_joint</joint_name>
-      <topic>/leg_left_joint/cmd</topic>
-      <p_gain>10.0</p_gain>
-      <i_gain>0.0</i_gain>
-      <d_gain>0.5</d_gain>
-    </plugin>
-    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
-      <joint_name>foot_right_joint</joint_name>
-      <topic>/foot_right_joint/cmd</topic>
-      <p_gain>10.0</p_gain>
-      <i_gain>0.0</i_gain>
-      <d_gain>0.5</d_gain>
-    </plugin>
-    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
-      <joint_name>foot_left_joint</joint_name>
-      <topic>/foot_left_joint/cmd</topic>
-      <p_gain>10.0</p_gain>
-      <i_gain>0.0</i_gain>
-      <d_gain>0.5</d_gain>
-    </plugin>
-  </gazebo>
+  
   <!-- FRICTION/CONTACT Gazebo Harmonic -->
   <gazebo reference="FootRight_1">
     <collision>
@@ -393,5 +364,40 @@
         </contact>
       </surface>
     </collision>
+  </gazebo>
+
+  <!-- ==================== ROS2 CONTROL ==================== -->
+  <ros2_control name="otto_hardware" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    <joint name="leg_right_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="leg_left_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="foot_right_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="foot_left_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>robot_state_publisher</robot_param_node>
+      <parameters>/ros2_ws/src/otto_description/config/controllers.yaml</parameters>
+    </plugin>
   </gazebo>
 </robot>

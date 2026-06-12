@@ -21,7 +21,7 @@ find_package(urdf REQUIRED)
 ################################################################################
 # Install
 ################################################################################
-install(DIRECTORY meshes urdf launch scripts
+install(DIRECTORY meshes urdf launch scripts config
   DESTINATION share/${PROJECT_NAME}
 )
 

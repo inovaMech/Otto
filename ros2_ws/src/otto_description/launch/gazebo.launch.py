@@ -3,7 +3,7 @@
 from launch_ros.parameter_descriptions import ParameterValue
 from launch import LaunchDescription
 from launch.substitutions import Command, FindExecutable, PathJoinSubstitution
-from launch.actions import IncludeLaunchDescription, AppendEnvironmentVariable
+from launch.actions import IncludeLaunchDescription, AppendEnvironmentVariable, TimerAction, ExecuteProcess
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -35,7 +35,6 @@ def generate_launch_description():
         name='joint_state_publisher_gui'
     )
 
-    ###### RVIZ ######
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare("otto"), "launch", "urdf.rviz"]
     )
@@ -48,7 +47,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    ###### GAZEBO HARMONIC ######
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
@@ -65,7 +63,7 @@ def generate_launch_description():
         arguments=[
             '-topic', 'robot_description',
             '-name', 'otto',
-            '-z', '0.033',
+            '-z', '0.073',
             '-Y', '3.1407',
         ],
         output='both'
@@ -76,7 +74,6 @@ def generate_launch_description():
         PathJoinSubstitution([get_package_prefix("otto"), "share"])
     )
 
-    ###### BRIDGE ROS2 <-> GAZEBO ######
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -91,12 +88,34 @@ def generate_launch_description():
         output='screen'
     )
 
+    load_joint_state_broadcaster = TimerAction(
+        period=3.0,
+        actions=[
+            ExecuteProcess(
+                cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'joint_state_broadcaster'],
+                output='screen'
+            ),
+        ]
+    )
+
+    load_position_controller = TimerAction(
+        period=4.0,
+        actions=[
+            ExecuteProcess(
+                cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'otto_position_controller'],
+                output='screen'
+            ),
+        ]
+    )
+
     return LaunchDescription([
         gazebo_env,
         robot_state_publisher_node,
+        #joint_state_publisher_gui_node,
         rviz_node,
         gazebo,
         spawn_entity,
-        joint_state_publisher_gui_node,
         bridge,
+        load_joint_state_broadcaster,
+        load_position_controller,
     ])
